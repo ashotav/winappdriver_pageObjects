@@ -51,16 +51,16 @@ namespace CalculatorTest
         //    Assert.AreEqual("8", GetCalculatorResultText());
         //}
 
-        //[TestMethod]
-        //public void Multiplication()
-        //{
-        //    // Find the buttons by their names using XPath and click them in sequence to perform 9 x 9 = 81
-        //    session.FindElementByXPath("//Button[@Name='Nine']").Click();
-        //    session.FindElementByXPath("//Button[@Name='Multiply by']").Click();
-        //    session.FindElementByXPath("//Button[@Name='Nine']").Click();
-        //    session.FindElementByXPath("//Button[@Name='Equals']").Click();
-        //    Assert.AreEqual("81", GetCalculatorResultText());
-        //}
+        [TestMethod]
+        public void Multiplication()
+        {
+            // Find the buttons by their names using XPath and click them in sequence to perform 9 x 9 = 81
+            session.FindElementByXPath("//Button[@Name='Nine']").Click();
+            session.FindElementByXPath("//Button[@Name='Multiply by']").Click();
+            session.FindElementByXPath("//Button[@Name='Nine']").Click();
+            session.FindElementByXPath("//Button[@Name='Equals']").Click();
+            Assert.AreEqual("81", GetCalculatorResultText());
+        }
 
         [TestMethod]
         public void Subtraction()
