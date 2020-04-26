@@ -119,6 +119,8 @@ namespace WinAppDriverPgeObjects
             {
                 Console.WriteLine($"Console catched:{fName} {exp.Message}");
                 Debug.WriteLine($"Debug catched:{fName} {exp.Message}");
+                //throw new Exception($"Testmetod {fName} failed ");
+                Assert.IsTrue(false);
             }
             //var tvControl = _driver.FindElementByClassName("NetUIRibbonButton");
 
@@ -139,17 +141,27 @@ namespace WinAppDriverPgeObjects
             string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
+                string txt = "";
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ViewButton, fName);
                 _OutLookStandardView.AssertDisplayed(_OutLookStandardView.ChangeViewButton);
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ChangeViewButton, fName);
+                txt = _OutLookStandardView.CompactButton.Text;
                 _OutLookStandardView.CompactButton.Click();
+                Debug.WriteLine($"Debug: Test: {fName} {txt} Date: {DateTime.Now:dd-MM-yyyy HH:mm:ss.fff}");
+                Console.WriteLine($"Console: Test:{fName} {txt} Date: {DateTime.Now:dd-MM-yyyy HH:mm:ss.fff}");
                 //_OutLookStandardView.WaitUntil(_OutLookStandardView.CompactButton, _waitEl, fName);
                 //_OutLookStandardView.ClickElement(_OutLookStandardView.CompactButton, fName);
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ChangeViewButton, fName);
+                txt = _OutLookStandardView.SingleButton.Text;
                 _OutLookStandardView.SingleButton.Click();
+                Debug.WriteLine($"Debug: Test: {fName} {txt} Date: {DateTime.Now:dd-MM-yyyy HH:mm:ss.fff}");
+                Console.WriteLine($"Console: Test:{fName} {txt} Date: {DateTime.Now:dd-MM-yyyy HH:mm:ss.fff}");
                 //_OutLookStandardView.ClickElement(_OutLookStandardView.SingleButton, fName);
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ChangeViewButton, fName);
+                txt = _OutLookStandardView.PreviewButton.Text;
                 _OutLookStandardView.PreviewButton.Click();
+                Debug.WriteLine($"Debug: Test: {fName} {txt} Date: {DateTime.Now:dd-MM-yyyy HH:mm:ss.fff}");
+                Console.WriteLine($"Console: Test:{fName} {txt} Date: {DateTime.Now:dd-MM-yyyy HH:mm:ss.fff}");
                 //_OutLookStandardView.WaitUntil(_OutLookStandardView.PreviewButton, _waitEl, fName);
                 //_OutLookStandardView.ClickElement(_OutLookStandardView.PreviewButton, fName);
             }
