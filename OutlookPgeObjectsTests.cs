@@ -37,7 +37,7 @@ namespace WinAppDriverPgeObjects
             _driver = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), options);
             Assert.IsNotNull(_driver);
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
- 
+
             _waitEl = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
             Assert.IsNotNull(_waitEl);
 
@@ -85,32 +85,40 @@ namespace WinAppDriverPgeObjects
         {
             Debug.WriteLine("AfterClick");
             Console.WriteLine("AfterClick");
-         }
+        }
 
         [TestMethod]
         public void FolderClick()
         {
             string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-            _OutLookStandardView.WaitUntil(_OutLookStandardView.FolderButton, _waitEl, fName);
-            _OutLookStandardView.ClickElement(_OutLookStandardView.FolderButton, fName);
-            //_OutLookStandardView.AssertDisplayed(_OutLookStandardView.NewFolderButton);
-            _OutLookStandardView.AssertDisplayed(_OutLookStandardView.NewEmailButton);
+            try
+            {
+                _OutLookStandardView.WaitUntil(_OutLookStandardView.FolderButton, _waitEl, fName);
+                _OutLookStandardView.ClickElement(_OutLookStandardView.FolderButton, fName);
+                _OutLookStandardView.AssertDisplayed(_OutLookStandardView.NewFolderButton);
+                //_OutLookStandardView.AssertDisplayed(_OutLookStandardView.NewEmailButton);
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine($"Console catched: {fName}{exp.Message}");
+                Debug.WriteLine($"Debug catched:{fName} {exp.Message}");
+            }
         }
 
         [TestMethod]
         public void HomeClick()
         {
+            string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 _OutLookStandardView.ClickElement(_OutLookStandardView.HomeButton, fName);
                 _OutLookStandardView.AssertDisplayed(_OutLookStandardView.NewEmailButton);
                 WindowsElement el = _driver.FindElementByName("New E-mail1");
             }
             catch (Exception exp)
             {
-                Console.WriteLine($"Console catched: {exp.Message}");
-                Debug.WriteLine($"Debug catched: {exp.Message}");
+                Console.WriteLine($"Console catched:{fName} {exp.Message}");
+                Debug.WriteLine($"Debug catched:{fName} {exp.Message}");
             }
             //var tvControl = _driver.FindElementByClassName("NetUIRibbonButton");
 
@@ -128,45 +136,58 @@ namespace WinAppDriverPgeObjects
         [TestMethod]
         public void ViewClick()
         {
+            string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ViewButton, fName);
                 _OutLookStandardView.AssertDisplayed(_OutLookStandardView.ChangeViewButton);
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ChangeViewButton, fName);
-                _OutLookStandardView.ClickElement(_OutLookStandardView.CompactButton, fName);
+                _OutLookStandardView.CompactButton.Click();
+                //_OutLookStandardView.WaitUntil(_OutLookStandardView.CompactButton, _waitEl, fName);
+                //_OutLookStandardView.ClickElement(_OutLookStandardView.CompactButton, fName);
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ChangeViewButton, fName);
-                _OutLookStandardView.ClickElement(_OutLookStandardView.SingleButton, fName);
+                _OutLookStandardView.SingleButton.Click();
+                //_OutLookStandardView.ClickElement(_OutLookStandardView.SingleButton, fName);
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ChangeViewButton, fName);
-                _OutLookStandardView.ClickElement(_OutLookStandardView.PreviewButton, fName);
+                _OutLookStandardView.PreviewButton.Click();
+                //_OutLookStandardView.WaitUntil(_OutLookStandardView.PreviewButton, _waitEl, fName);
+                //_OutLookStandardView.ClickElement(_OutLookStandardView.PreviewButton, fName);
             }
             catch (Exception exp)
             {
-                Console.WriteLine($"Console catched: {exp.Message}");
-                Debug.WriteLine($"Debug catched: {exp.Message}");
+                Console.WriteLine($"Console catched:{fName} {exp.Message}");
+                Debug.WriteLine($"Debug catched:{fName} {exp.Message}");
             }
         }
 
         [TestMethod]
         public void ShowAsConversationsClick()
         {
+            string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
             try
             {
-                string fName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 _OutLookStandardView.ClickElement(_OutLookStandardView.ViewButton, fName);
                 Debug.WriteLine($"Value of checkbox is: {_OutLookStandardView.ShowAsConversationsButton.Selected}");
                 Console.WriteLine($"Value of checkbox is: {_OutLookStandardView.ShowAsConversationsButton.Selected}");
-                _OutLookStandardView.ClickElement(_OutLookStandardView.ShowAsConversationsButton, fName);
-                _OutLookStandardView.ClickElement(_OutLookStandardView.ThisFolderButton, fName);
+                if (_OutLookStandardView.ShowAsConversationsButton.Enabled)
+                {
+                    _OutLookStandardView.ClickElement(_OutLookStandardView.ShowAsConversationsButton, fName);
+                    _OutLookStandardView.ThisFolderButton.Click();
+                    //_OutLookStandardView.ClickElement(_OutLookStandardView.ThisFolderButton, fName);
+                }
                 Debug.WriteLine($"Value of checkbox is: {_OutLookStandardView.ShowAsConversationsButton.Selected}");
                 Console.WriteLine($"Value of checkbox is: {_OutLookStandardView.ShowAsConversationsButton.Selected}");
-                _OutLookStandardView.ClickElement(_OutLookStandardView.ShowAsConversationsButton, fName);
-                _OutLookStandardView.ClickElement(_OutLookStandardView.ThisFolderButton, fName);
+                if (_OutLookStandardView.ShowAsConversationsButton.Enabled)
+                {
+                    _OutLookStandardView.ClickElement(_OutLookStandardView.ShowAsConversationsButton, fName);
+                    _OutLookStandardView.ThisFolderButton.Click();
+                    //_OutLookStandardView.ClickElement(_OutLookStandardView.ThisFolderButton, fName);
+                }
             }
             catch (Exception exp)
             {
-                Console.WriteLine($"Console catched: {exp.Message}");
-                Debug.WriteLine($"Debug catched: {exp.Message}");
+                Console.WriteLine($"Console catched:{fName} {exp.Message}");
+                Debug.WriteLine($"Debug catched: {fName}{exp.Message}");
             }
         }
     }
